@@ -1,27 +1,25 @@
 package com.androidpoplib.githubconnect.presenter
 
-import com.androidpoplib.githubconnect.R
 import com.androidpoplib.githubconnect.model.CountersModel
 import com.androidpoplib.githubconnect.view.MainView
 
-class MainPresenter(val view: MainView) {
-    val model = CountersModel()
+const val INDEX_BTN_1 = 0
+const val INDEX_BTN_2 = 1
+const val INDEX_BTN_3 = 2
 
-    //Архитектурная ошибка. В качестве практического задания — исправить
-    fun counterClick(id: Int) {
-        when (id) {
-            R.id.btn_counter1 -> {
-                val nextValue = model.next(0)
-                view.setButtonText(0, nextValue.toString())
-            }
-            R.id.btn_counter2 -> {
-                val nextValue = model.next(1)
-                view.setButtonText(1, nextValue.toString())
-            }
-            R.id.btn_counter3 -> {
-                val nextValue = model.next(2)
-                view.setButtonText(2, nextValue.toString())
-            }
-        }
+class MainPresenter(private val view: MainView) {
+    private val model = CountersModel()
+
+    fun clickBtn1() {
+        view.setTextBtn1(model.next(INDEX_BTN_1).toString())
     }
+
+    fun clickBtn2() {
+        view.setTextBtn2(model.next(INDEX_BTN_2).toString())
+    }
+
+    fun clickBtn3() {
+        view.setTextBtn3(model.next(INDEX_BTN_3).toString())
+    }
+
 }
