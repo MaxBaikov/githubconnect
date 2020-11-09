@@ -1,14 +1,19 @@
 package com.androidpoplib.githubconnect
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.androidpoplib.githubconnect.model.CountersModel
 import com.androidpoplib.githubconnect.presenter.MainPresenter
 import com.androidpoplib.githubconnect.view.MainView
 import kotlinx.android.synthetic.main.activity_main.*
+import moxy.MvpAppCompatActivity
+import moxy.ktx.moxyPresenter
 
-class MainActivity : AppCompatActivity(), MainView {
+class MainActivity : MvpAppCompatActivity(), MainView {
 
-    private val presenter = MainPresenter(this)
+    private val presenter by moxyPresenter {
+        MainPresenter(CountersModel())
+    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
