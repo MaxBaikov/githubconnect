@@ -4,6 +4,7 @@ import com.androidpoplib.githubconnect.mvp.model.GithubUser
 import com.androidpoplib.githubconnect.mvp.model.GithubUsersRepo
 import com.androidpoplib.githubconnect.mvp.view.UserItemView
 import com.androidpoplib.githubconnect.mvp.view.UsersView
+import com.androidpoplib.githubconnect.navigation.Screens
 import moxy.MvpPresenter
 import ru.terrakok.cicerone.Router
 
@@ -27,8 +28,7 @@ class UsersPresenter(val usersRepo: GithubUsersRepo, val router: Router) : MvpPr
         viewState.init()
         loadData()
 
-        usersListPresenter.itemClickListener = { itemView ->
-            //TODO: переход на экран пользователя c помощью router.navigateTo
+        usersListPresenter.itemClickListener = { itemView -> router.navigateTo(Screens.LoginScreen(usersListPresenter.users[itemView.pos]))
         }
     }
 
