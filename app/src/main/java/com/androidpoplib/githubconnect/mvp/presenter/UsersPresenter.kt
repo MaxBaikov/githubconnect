@@ -8,13 +8,12 @@ import com.androidpoplib.githubconnect.navigation.Screens
 import moxy.MvpPresenter
 import ru.terrakok.cicerone.Router
 
-class UsersPresenter(val usersRepo: GithubUsersRepo, val router: Router) : MvpPresenter<UsersView>() {
+class UsersPresenter(private val usersRepo: GithubUsersRepo, val router: Router) :
+    MvpPresenter<UsersView>() {
     class UsersListPresenter : IUserListPresenter {
         val users = mutableListOf<GithubUser>()
         override var itemClickListener: ((UserItemView) -> Unit)? = null
-
         override fun getCount() = users.size
-
         override fun bindView(view: UserItemView) {
             val user = users[view.pos]
             view.setLogin(user.login)
@@ -28,13 +27,15 @@ class UsersPresenter(val usersRepo: GithubUsersRepo, val router: Router) : MvpPr
         viewState.init()
         loadData()
 
-        usersListPresenter.itemClickListener = { itemView -> router.navigateTo(Screens.LoginScreen(usersListPresenter.users[itemView.pos]))
+        usersListPresenter.itemClickListener = { itemView ->
+            usersRepo.fromIterable().elementAt(itemView.pos.toLong()).subscribe { s ->
+                router.navigateTo(Screens.LoginScreen(s))
+            }
         }
     }
 
-    fun loadData() {
-        val users = usersRepo.getUsers()
-        usersListPresenter.users.addAll(users)
+    private fun loadData() {
+        usersRepo.fromIterable().subscribe { s -> usersListPresenter.users.add(s) }
         viewState.updateList()
     }
 

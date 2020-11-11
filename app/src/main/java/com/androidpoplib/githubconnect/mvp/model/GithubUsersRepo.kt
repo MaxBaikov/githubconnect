@@ -1,5 +1,7 @@
 package com.androidpoplib.githubconnect.mvp.model
 
+import io.reactivex.rxjava3.core.Observable
+
 class GithubUsersRepo {
     private val repositories = listOf(
         GithubUser("login1"),
@@ -14,8 +16,8 @@ class GithubUsersRepo {
 
     )
 
-    fun getUsers() : List<GithubUser> {
-        return repositories
+    fun fromIterable(): Observable<GithubUser> {
+        return Observable.fromIterable(repositories)
     }
 
 }
