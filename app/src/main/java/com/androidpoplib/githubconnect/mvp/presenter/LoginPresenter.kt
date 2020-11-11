@@ -5,7 +5,7 @@ import com.androidpoplib.githubconnect.mvp.view.LoginView
 import moxy.MvpPresenter
 import ru.terrakok.cicerone.Router
 
-class LoginPresenter(val router: Router) : MvpPresenter<LoginView>() {
+class LoginPresenter(private val router: Router) : MvpPresenter<LoginView>() {
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
