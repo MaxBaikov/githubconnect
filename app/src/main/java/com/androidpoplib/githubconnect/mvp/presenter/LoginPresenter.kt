@@ -5,7 +5,7 @@ import com.androidpoplib.githubconnect.mvp.view.LoginView
 import moxy.MvpPresenter
 import ru.terrakok.cicerone.Router
 
-class LoginPresenter(private val router: Router) : MvpPresenter<LoginView>() {
+class LoginPresenter(private val router: Router?) : MvpPresenter<LoginView>() {
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
@@ -13,7 +13,7 @@ class LoginPresenter(private val router: Router) : MvpPresenter<LoginView>() {
     }
 
     fun backPressed(): Boolean {
-        router.exit()
+        router?.exit()
         return true
     }
 }

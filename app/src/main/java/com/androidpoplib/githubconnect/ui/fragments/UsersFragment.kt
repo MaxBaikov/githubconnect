@@ -5,13 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.androidpoplib.githubconnect.App
+import com.androidpoplib.githubconnect.GithubApplication
 import com.androidpoplib.githubconnect.R
-import com.androidpoplib.githubconnect.mvp.model.GithubUsersRepo
 import com.androidpoplib.githubconnect.mvp.presenter.UsersPresenter
 import com.androidpoplib.githubconnect.mvp.view.UsersView
 import com.androidpoplib.githubconnect.ui.BackButtonListener
 import com.androidpoplib.githubconnect.ui.adapters.UsersRVAdapter
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_users.*
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
@@ -22,9 +22,10 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
     }
 
     val presenter: UsersPresenter by moxyPresenter {
+
         UsersPresenter(
-            GithubUsersRepo(),
-            App.instance.router
+            AndroidSchedulers.mainThread(),
+            GithubApplication.application?.router
         )
     }
     var adapter: UsersRVAdapter? = null

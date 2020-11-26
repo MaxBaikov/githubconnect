@@ -4,9 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.androidpoplib.githubconnect.App
+import com.androidpoplib.githubconnect.GithubApplication
 import com.androidpoplib.githubconnect.R
-import com.androidpoplib.githubconnect.mvp.model.GithubUser
+import com.androidpoplib.githubconnect.mvp.model.entity.GithubUser
 import com.androidpoplib.githubconnect.mvp.presenter.LoginPresenter
 import com.androidpoplib.githubconnect.mvp.view.LoginView
 import com.androidpoplib.githubconnect.ui.BackButtonListener
@@ -24,7 +24,7 @@ class LoginFragment : MvpAppCompatFragment(), LoginView, BackButtonListener {
         }
     }
 
-    val presenter: LoginPresenter by moxyPresenter { LoginPresenter(App.instance.router) }
+    val presenter: LoginPresenter by moxyPresenter { LoginPresenter(GithubApplication.application?.router) }
 
     override fun onCreateView(
         inflater: LayoutInflater,

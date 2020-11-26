@@ -1,6 +1,6 @@
 package com.androidpoplib.githubconnect.navigation
 
-import com.androidpoplib.githubconnect.mvp.model.GithubUser
+import com.androidpoplib.githubconnect.mvp.model.entity.GithubUser
 import com.androidpoplib.githubconnect.ui.fragments.LoginFragment
 import com.androidpoplib.githubconnect.ui.fragments.UsersFragment
 import ru.terrakok.cicerone.android.support.SupportAppScreen

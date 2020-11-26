@@ -1,5 +1,6 @@
-package com.androidpoplib.githubconnect.mvp.model
+package com.androidpoplib.githubconnect.mvp.model.entity
 
+import com.androidpoplib.githubconnect.mvp.model.entity.GithubUser
 import io.reactivex.rxjava3.core.Observable
 
 class GithubUsersRepo {
@@ -16,7 +17,7 @@ class GithubUsersRepo {
 
     )
 
-    fun fromIterable(): Observable<GithubUser> {
+    fun getUsers(): Observable<GithubUser> {
         return Observable.fromIterable(repositories)
     }
 
