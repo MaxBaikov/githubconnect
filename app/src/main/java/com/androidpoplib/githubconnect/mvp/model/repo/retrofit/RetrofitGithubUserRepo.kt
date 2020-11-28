@@ -5,7 +5,7 @@ import com.androidpoplib.githubconnect.mvp.model.entity.GitHubUserRepo
 import com.androidpoplib.githubconnect.mvp.model.repo.IGithubUserRepo
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
-import retrofit2.http.Path
+
 
 class RetrofitGithubUserRepo(private val api: IDataSource,
     private val login: String

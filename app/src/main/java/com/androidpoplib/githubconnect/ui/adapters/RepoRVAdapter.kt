@@ -9,7 +9,7 @@ import com.androidpoplib.githubconnect.mvp.presenter.IRepoListPresenter
 import com.androidpoplib.githubconnect.mvp.view.RepoItemView
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_repo.view.*
-import kotlinx.android.synthetic.main.item_user.view.*
+
 
 
 class RepoRVAdapter(
