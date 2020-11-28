@@ -28,6 +28,7 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
             GithubApplication.application?.router
         )
     }
+
     var adapter: UsersRVAdapter? = null
 
     override fun onCreateView(
