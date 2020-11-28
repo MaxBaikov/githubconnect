@@ -7,6 +7,7 @@ import com.androidpoplib.githubconnect.mvp.model.entity.GitHubUserRepo
 import com.androidpoplib.githubconnect.mvp.model.repo.retrofit.RetrofitGithubUserRepo
 import com.androidpoplib.githubconnect.mvp.view.RepoItemView
 import com.androidpoplib.githubconnect.mvp.view.RepoView
+import com.androidpoplib.githubconnect.navigation.Screens
 import com.androidpoplib.githubconnect.ui.adapters.RepoRVAdapter
 import io.reactivex.rxjava3.core.Scheduler
 import moxy.MvpPresenter
@@ -40,10 +41,9 @@ class RepoPresenter(
         viewState.init()
         loadData()
 
-        //TODO добавить переход на 3ий экран
-//        usersListPresenter.itemClickListener = { itemView ->
-//            router?.navigateTo(Screens.ReposScreen(usersListPresenter.users.elementAt(itemView.pos)))
-//        }
+        repoListPresenter.itemClickListener = { itemView ->
+            router?.navigateTo(Screens.ForksScreen(repoListPresenter.repos.elementAt(itemView.pos)))
+        }
     }
 
     private fun loadData() {
