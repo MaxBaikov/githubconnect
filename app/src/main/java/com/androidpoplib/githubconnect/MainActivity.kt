@@ -10,10 +10,10 @@ import ru.terrakok.cicerone.android.support.SupportAppNavigator
 
 class MainActivity : MvpAppCompatActivity(), MainView {
 
-    val navigatorHolder = GithubApplication.application?.navigatorHolder
-    val navigator = SupportAppNavigator(this, supportFragmentManager, R.id.container)
+    private val navigatorHolder = GithubApplication.instance.navigatorHolder
+    private val navigator = SupportAppNavigator(this, supportFragmentManager, R.id.container)
 
-    val presenter: MainPresenter by moxyPresenter { MainPresenter(GithubApplication.application?.router) }
+    val presenter: MainPresenter by moxyPresenter { MainPresenter(GithubApplication.instance.router) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,12 +22,12 @@ class MainActivity : MvpAppCompatActivity(), MainView {
 
     override fun onResumeFragments() {
         super.onResumeFragments()
-        navigatorHolder?.setNavigator(navigator)
+        navigatorHolder.setNavigator(navigator)
     }
 
     override fun onPause() {
         super.onPause()
-        navigatorHolder?.removeNavigator()
+        navigatorHolder.removeNavigator()
     }
 
     override fun onBackPressed() {

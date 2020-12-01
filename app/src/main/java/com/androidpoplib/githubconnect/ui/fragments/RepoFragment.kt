@@ -5,13 +5,19 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.androidpoplib.githubconnect.ApiHolder
 import com.androidpoplib.githubconnect.GithubApplication
 import com.androidpoplib.githubconnect.R
 import com.androidpoplib.githubconnect.mvp.model.entity.GithubUser
+import com.androidpoplib.githubconnect.mvp.model.entity.room.Database
+import com.androidpoplib.githubconnect.mvp.model.entity.room.cache.RoomRepoCache
+import com.androidpoplib.githubconnect.mvp.model.repo.IGithubUserRepo
+import com.androidpoplib.githubconnect.mvp.model.repo.retrofit.RetrofitGithubUserRepo
 import com.androidpoplib.githubconnect.mvp.presenter.RepoPresenter
 import com.androidpoplib.githubconnect.mvp.view.RepoView
 import com.androidpoplib.githubconnect.ui.BackButtonListener
 import com.androidpoplib.githubconnect.ui.adapters.RepoRVAdapter
+import com.androidpoplib.githubconnect.ui.network.AndroidNetworkStatus
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_repo.*
 import moxy.MvpAppCompatFragment
@@ -27,13 +33,22 @@ class RepoFragment : MvpAppCompatFragment(), RepoView, BackButtonListener {
         }
     }
 
-    val presenter: RepoPresenter by moxyPresenter {
-        RepoPresenter(
-            AndroidSchedulers.mainThread(),
-            GithubApplication.application?.router,
-            currentUser.login
-        )
-    }
+    val presenter: RepoPresenter by moxyPresenter(
+        factory = fun(): RepoPresenter {
+            val githubRepositoriesRepo : IGithubUserRepo = RetrofitGithubUserRepo(
+                ApiHolder.api,
+                AndroidNetworkStatus(),
+                RoomRepoCache(Database.getInstance(GithubApplication.instance)!!)
+            )
+
+            return RepoPresenter(
+                AndroidSchedulers.mainThread(),
+                GithubApplication.instance.router,
+                githubRepositoriesRepo,
+                currentUser
+            )
+        },
+    )
 
     var adapter: RepoRVAdapter? = null
 

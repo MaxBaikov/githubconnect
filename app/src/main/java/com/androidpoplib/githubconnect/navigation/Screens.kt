@@ -1,6 +1,6 @@
 package com.androidpoplib.githubconnect.navigation
 
-import com.androidpoplib.githubconnect.mvp.model.entity.GitHubUserRepo
+import com.androidpoplib.githubconnect.mvp.model.entity.GithubUserRepo
 import com.androidpoplib.githubconnect.mvp.model.entity.GithubUser
 import com.androidpoplib.githubconnect.ui.fragments.ForkFragment
 import com.androidpoplib.githubconnect.ui.fragments.RepoFragment
@@ -14,7 +14,7 @@ class Screens {
     class ReposScreen(private val user: GithubUser) : SupportAppScreen() {
         override fun getFragment() = RepoFragment.newInstance(user)
     }
-    class ForksScreen(private val repo: GitHubUserRepo) : SupportAppScreen() {
+    class ForksScreen(private val repo: GithubUserRepo) : SupportAppScreen() {
         override fun getFragment() = ForkFragment.newInstance(repo)
     }
 
