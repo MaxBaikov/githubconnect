@@ -1,9 +1,9 @@
 package com.androidpoplib.githubconnect.mvp.presenter
 
 import android.util.Log
-import com.androidpoplib.githubconnect.GithubApplication
 import com.androidpoplib.githubconnect.mvp.model.entity.GithubUser
-import com.androidpoplib.githubconnect.mvp.model.repo.retrofit.RetrofitGithubUsers
+import com.androidpoplib.githubconnect.mvp.model.repo.IGithubUsers
+import com.androidpoplib.githubconnect.mvp.presenter.list.IUserListPresenter
 import com.androidpoplib.githubconnect.mvp.view.UserItemView
 import com.androidpoplib.githubconnect.mvp.view.UsersView
 import com.androidpoplib.githubconnect.navigation.Screens
@@ -14,20 +14,19 @@ import ru.terrakok.cicerone.Router
 
 class UsersPresenter(
     private val scheduler: Scheduler,
-    private val router: Router?
+    private val router: Router?,
+    private val usersRepo: IGithubUsers
 ) :
     MvpPresenter<UsersView>() {
-
-    private val usersRepo = GithubApplication.application?.api?.let { RetrofitGithubUsers(it) }
-    private val TAG = UsersPresenter::class.java.simpleName
-
     class UsersListPresenter : IUserListPresenter {
         val users = mutableListOf<GithubUser>()
         override var itemClickListener: ((UserItemView) -> Unit)? = null
+
         override fun getCount() = users.size
+
         override fun bindView(view: UsersRVAdapter.ViewHolder) {
             val user = users[view.pos]
-            view.setLogin(user.login)
+            user.login?.let { view.setLogin(it) }
             user.avatarUrl?.let { view.loadAvatar(it) }
         }
     }
@@ -40,22 +39,31 @@ class UsersPresenter(
         loadData()
 
         usersListPresenter.itemClickListener = { itemView ->
-            router?.navigateTo(Screens.ReposScreen(usersListPresenter.users.elementAt(itemView.pos)))
+            router?.navigateTo(Screens.ReposScreen(
+                usersListPresenter.users.elementAt(itemView.pos)))
         }
     }
 
     private fun loadData() {
-        usersRepo?.users?.observeOn(scheduler)?.subscribe({ repos ->
+        usersRepo.getUsers()
+            .observeOn(scheduler)
+            .subscribe({
             usersListPresenter.users.clear()
-            usersListPresenter.users.addAll(repos)
+            usersListPresenter.users.addAll(it)
             viewState.updateList()
-        }) { e -> Log.w(TAG, "Error" + e.localizedMessage) }
+        }) {
+                Log.w(Companion.TAG, "Error" + it.localizedMessage)
+            }
     }
 
 
     fun backPressed(): Boolean {
         router?.exit()
         return true
+    }
+
+    companion object {
+        const val TAG = "githubconnect"
     }
 
 }

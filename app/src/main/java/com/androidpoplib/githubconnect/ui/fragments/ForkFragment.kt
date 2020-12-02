@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.androidpoplib.githubconnect.GithubApplication
 import com.androidpoplib.githubconnect.R
-import com.androidpoplib.githubconnect.mvp.model.entity.GitHubUserRepo
+import com.androidpoplib.githubconnect.mvp.model.entity.GithubUserRepo
 import com.androidpoplib.githubconnect.mvp.presenter.ForkPresenter
 import com.androidpoplib.githubconnect.mvp.view.ForkView
 import com.androidpoplib.githubconnect.ui.BackButtonListener
@@ -18,8 +18,8 @@ import moxy.ktx.moxyPresenter
 class ForkFragment : MvpAppCompatFragment(), ForkView, BackButtonListener {
 
     companion object {
-        lateinit var currentRepo: GitHubUserRepo
-        fun newInstance(repo: GitHubUserRepo): ForkFragment {
+        lateinit var currentRepo: GithubUserRepo
+        fun newInstance(repo: GithubUserRepo): ForkFragment {
             currentRepo = repo
             return ForkFragment()
         }
@@ -28,7 +28,7 @@ class ForkFragment : MvpAppCompatFragment(), ForkView, BackButtonListener {
     val presenter: ForkPresenter by moxyPresenter {
         ForkPresenter(
             AndroidSchedulers.mainThread(),
-            GithubApplication.application?.router
+            GithubApplication.instance.router
         )
     }
 

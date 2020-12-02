@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.androidpoplib.githubconnect.R
-import com.androidpoplib.githubconnect.mvp.presenter.IRepoListPresenter
+import com.androidpoplib.githubconnect.mvp.presenter.list.IRepoListPresenter
 import com.androidpoplib.githubconnect.mvp.view.RepoItemView
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_repo.view.*

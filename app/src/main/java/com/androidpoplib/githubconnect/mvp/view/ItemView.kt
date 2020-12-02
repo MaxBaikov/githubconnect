@@ -1,5 +1,5 @@
 package com.androidpoplib.githubconnect.mvp.view
 
-interface IItemView {
+interface ItemView {
     var pos: Int
 }

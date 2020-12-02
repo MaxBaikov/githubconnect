@@ -5,12 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.androidpoplib.githubconnect.ApiHolder
 import com.androidpoplib.githubconnect.GithubApplication
 import com.androidpoplib.githubconnect.R
+import com.androidpoplib.githubconnect.mvp.model.entity.room.Database
+import com.androidpoplib.githubconnect.mvp.model.entity.room.cache.RoomUsersCache
+import com.androidpoplib.githubconnect.mvp.model.repo.IGithubUsers
+import com.androidpoplib.githubconnect.mvp.model.repo.retrofit.RetrofitGithubUsers
 import com.androidpoplib.githubconnect.mvp.presenter.UsersPresenter
 import com.androidpoplib.githubconnect.mvp.view.UsersView
 import com.androidpoplib.githubconnect.ui.BackButtonListener
 import com.androidpoplib.githubconnect.ui.adapters.UsersRVAdapter
+import com.androidpoplib.githubconnect.ui.network.AndroidNetworkStatus
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_users.*
 import moxy.MvpAppCompatFragment
@@ -21,13 +27,20 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
         fun newInstance() = UsersFragment()
     }
 
-    val presenter: UsersPresenter by moxyPresenter {
+    val presenter: UsersPresenter by moxyPresenter(
+        factory = fun(): UsersPresenter {
+            val githubUsersRepo: IGithubUsers = RetrofitGithubUsers(
+                ApiHolder.api,
+                AndroidNetworkStatus(),
+                userCache = RoomUsersCache(Database.getInstance(GithubApplication.instance)!!)
+            )
+            return UsersPresenter(
+                AndroidSchedulers.mainThread(),
+                GithubApplication.instance.router,
+                githubUsersRepo
 
-        UsersPresenter(
-            AndroidSchedulers.mainThread(),
-            GithubApplication.application?.router
-        )
-    }
+            )
+        })
 
     var adapter: UsersRVAdapter? = null
 
@@ -35,7 +48,7 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ) =
+    ): View =
         View.inflate(context, R.layout.fragment_users, null)
 
     override fun init() {
@@ -50,3 +63,6 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
 
     override fun backPressed() = presenter.backPressed()
 }
+
+
+
