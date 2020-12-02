@@ -19,8 +19,8 @@ class RetrofitGithubUserRepo(private val api: IDataSource,
 
     override fun getRepos(user: GithubUser): Single<List<GithubUserRepo>> = networkStatus.isOnlineSingle.flatMap { isOnline ->
         if (isOnline) {
-            user.reposUrl?.let(fun(url: String): @NonNull Single<List<GithubUserRepo>>? {
-                return api.getUserRepo(url)
+            user.login?.let(fun(login: String): @NonNull Single<List<GithubUserRepo>>? {
+                return api.getUserRepo(login)
                     .flatMap(
                         fun(repositories: List<GithubUserRepo>): SingleSource<out List<GithubUserRepo>>? {
                             return repositoriesCache.putRepositories(user, repositories).toSingleDefault(repositories)

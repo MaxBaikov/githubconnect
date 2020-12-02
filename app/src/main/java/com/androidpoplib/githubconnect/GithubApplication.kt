@@ -19,8 +19,9 @@ class GithubApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        Database.getInstance(this)
         instance = this
+        Database.getInstance(this)
+
     }
 
     val navigatorHolder: NavigatorHolder

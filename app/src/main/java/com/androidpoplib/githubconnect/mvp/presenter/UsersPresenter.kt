@@ -1,10 +1,9 @@
 package com.androidpoplib.githubconnect.mvp.presenter
 
 import android.util.Log
-import com.androidpoplib.githubconnect.GithubApplication
 import com.androidpoplib.githubconnect.mvp.model.entity.GithubUser
 import com.androidpoplib.githubconnect.mvp.model.repo.IGithubUsers
-import com.androidpoplib.githubconnect.mvp.model.repo.retrofit.RetrofitGithubUsers
+import com.androidpoplib.githubconnect.mvp.presenter.list.IUserListPresenter
 import com.androidpoplib.githubconnect.mvp.view.UserItemView
 import com.androidpoplib.githubconnect.mvp.view.UsersView
 import com.androidpoplib.githubconnect.navigation.Screens
@@ -13,15 +12,12 @@ import io.reactivex.rxjava3.core.Scheduler
 import moxy.MvpPresenter
 import ru.terrakok.cicerone.Router
 
-const val TAG = "githubconnect"
-
 class UsersPresenter(
     private val scheduler: Scheduler,
     private val router: Router?,
     private val usersRepo: IGithubUsers
 ) :
     MvpPresenter<UsersView>() {
-
     class UsersListPresenter : IUserListPresenter {
         val users = mutableListOf<GithubUser>()
         override var itemClickListener: ((UserItemView) -> Unit)? = null
@@ -56,7 +52,7 @@ class UsersPresenter(
             usersListPresenter.users.addAll(it)
             viewState.updateList()
         }) {
-                Log.w(TAG, "Error" + it.localizedMessage)
+                Log.w(Companion.TAG, "Error" + it.localizedMessage)
             }
     }
 
@@ -64,6 +60,10 @@ class UsersPresenter(
     fun backPressed(): Boolean {
         router?.exit()
         return true
+    }
+
+    companion object {
+        const val TAG = "githubconnect"
     }
 
 }

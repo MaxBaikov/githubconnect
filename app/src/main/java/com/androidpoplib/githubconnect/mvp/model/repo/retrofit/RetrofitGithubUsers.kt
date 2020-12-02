@@ -3,15 +3,11 @@ package com.androidpoplib.githubconnect.mvp.model.repo.retrofit
 import com.androidpoplib.githubconnect.mvp.model.api.IDataSource
 import com.androidpoplib.githubconnect.mvp.model.entity.GithubUser
 import com.androidpoplib.githubconnect.mvp.model.entity.cache.IUsersCache
-import com.androidpoplib.githubconnect.mvp.model.entity.room.Database
-import com.androidpoplib.githubconnect.mvp.model.entity.room.RoomGithubUser
 import com.androidpoplib.githubconnect.ui.network.INetworkStatus
 import com.androidpoplib.githubconnect.mvp.model.repo.IGithubUsers
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.core.SingleSource
 import io.reactivex.rxjava3.schedulers.Schedulers
-import java.util.*
-import java.util.concurrent.Callable
 
 class RetrofitGithubUsers(private val api: IDataSource,
                           private val networkStatus: INetworkStatus,

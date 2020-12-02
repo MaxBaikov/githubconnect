@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.androidpoplib.githubconnect.R
-import com.androidpoplib.githubconnect.mvp.presenter.IUserListPresenter
+import com.androidpoplib.githubconnect.mvp.presenter.list.IUserListPresenter
 import com.androidpoplib.githubconnect.mvp.view.UserItemView
 import com.androidpoplib.githubconnect.mvp.view.image.GlideImageLoader
 import com.androidpoplib.githubconnect.mvp.view.image.IImageLoader

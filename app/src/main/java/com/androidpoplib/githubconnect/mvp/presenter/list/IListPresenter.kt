@@ -1,4 +1,4 @@
-package com.androidpoplib.githubconnect.mvp.presenter
+package com.androidpoplib.githubconnect.mvp.presenter.list
 
 import com.androidpoplib.githubconnect.mvp.view.ItemView
 

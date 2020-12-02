@@ -2,11 +2,10 @@ package com.androidpoplib.githubconnect.mvp.presenter
 
 
 import android.util.Log
-import com.androidpoplib.githubconnect.GithubApplication
 import com.androidpoplib.githubconnect.mvp.model.entity.GithubUser
 import com.androidpoplib.githubconnect.mvp.model.entity.GithubUserRepo
 import com.androidpoplib.githubconnect.mvp.model.repo.IGithubUserRepo
-import com.androidpoplib.githubconnect.mvp.model.repo.retrofit.RetrofitGithubUserRepo
+import com.androidpoplib.githubconnect.mvp.presenter.list.IRepoListPresenter
 import com.androidpoplib.githubconnect.mvp.view.RepoItemView
 import com.androidpoplib.githubconnect.mvp.view.RepoView
 import com.androidpoplib.githubconnect.navigation.Screens
@@ -22,8 +21,6 @@ class RepoPresenter(
     private val user: GithubUser
 ) : MvpPresenter<RepoView>() {
 
-    //    private val repoRepo = GithubApplication.instance.let {
-//        RetrofitGithubUserRepo(it,user) }
     private val TAG = RepoPresenter::class.java.simpleName
 
     class RepoListPresenter : IRepoListPresenter {
