@@ -41,7 +41,7 @@ class UsersRVAdapter(
         }
 
         override fun loadAvatar(url: String) {
-            imageLoader?.loadImage(url,containerView.iv_avatar)
+            imageLoader?.loadImage(url, containerView.iv_avatar)
         }
     }
 }

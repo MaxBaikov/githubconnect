@@ -3,7 +3,7 @@ package com.androidpoplib.githubconnect.mvp.model.repo.retrofit
 import com.androidpoplib.githubconnect.mvp.model.api.IDataSource
 import com.androidpoplib.githubconnect.mvp.model.entity.GithubUser
 import com.androidpoplib.githubconnect.mvp.model.entity.GithubUserRepo
-import com.androidpoplib.githubconnect.mvp.model.entity.room.cache.RoomRepoCache
+import com.androidpoplib.githubconnect.mvp.model.cache.IRepoCache
 import com.androidpoplib.githubconnect.mvp.model.repo.IGithubUserRepo
 import com.androidpoplib.githubconnect.ui.network.INetworkStatus
 import io.reactivex.rxjava3.annotations.NonNull
@@ -14,7 +14,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 
 class RetrofitGithubUserRepo(private val api: IDataSource,
                              private val networkStatus: INetworkStatus,
-                             private val repositoriesCache: RoomRepoCache
+                             private val repositoriesCache: IRepoCache
 ) : IGithubUserRepo {
 
     override fun getRepos(user: GithubUser): Single<List<GithubUserRepo>> = networkStatus.isOnlineSingle.flatMap { isOnline ->

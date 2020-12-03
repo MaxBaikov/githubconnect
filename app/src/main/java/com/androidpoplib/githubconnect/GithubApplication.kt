@@ -1,10 +1,9 @@
 package com.androidpoplib.githubconnect
 
 import android.app.Application
-import com.androidpoplib.githubconnect.mvp.model.entity.room.Database
-import ru.terrakok.cicerone.Cicerone
-import ru.terrakok.cicerone.NavigatorHolder
-import ru.terrakok.cicerone.Router
+import com.androidpoplib.githubconnect.di.AppComponent
+import com.androidpoplib.githubconnect.di.DaggerAppComponent
+import com.androidpoplib.githubconnect.di.module.AppModule
 
 class GithubApplication : Application() {
 
@@ -13,21 +12,14 @@ class GithubApplication : Application() {
         const val DEBUG = true
     }
 
-    private val cicerone: Cicerone<Router> by lazy {
-        Cicerone.create()
-    }
+    lateinit var appComponent: AppComponent
 
     override fun onCreate() {
         super.onCreate()
         instance = this
-        Database.getInstance(this)
 
+        appComponent = DaggerAppComponent.builder()
+            .appModule(AppModule(this))
+            .build()
     }
-
-    val navigatorHolder: NavigatorHolder
-        get() = cicerone.navigatorHolder
-
-    val router
-        get() = cicerone.router
-
 }
