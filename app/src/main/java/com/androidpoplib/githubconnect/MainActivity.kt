@@ -6,19 +6,25 @@ import com.androidpoplib.githubconnect.mvp.view.MainView
 import com.androidpoplib.githubconnect.ui.BackButtonListener
 import moxy.MvpAppCompatActivity
 import moxy.ktx.moxyPresenter
+import ru.terrakok.cicerone.NavigatorHolder
+
 import ru.terrakok.cicerone.android.support.SupportAppNavigator
+import javax.inject.Inject
 
 class MainActivity : MvpAppCompatActivity(), MainView {
 
-    private val navigatorHolder = GithubApplication.instance.navigatorHolder
-    private val navigator = SupportAppNavigator(this, supportFragmentManager, R.id.container)
+    @Inject
+    lateinit var navigatorHolder: NavigatorHolder
 
-    val presenter: MainPresenter by moxyPresenter { MainPresenter(GithubApplication.instance.router) }
+    private val navigator = SupportAppNavigator(this, supportFragmentManager, R.id.container)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        GithubApplication.instance.appComponent.inject(this)
     }
+
+    val presenter: MainPresenter by moxyPresenter { MainPresenter() }
 
     override fun onResumeFragments() {
         super.onResumeFragments()
@@ -32,7 +38,7 @@ class MainActivity : MvpAppCompatActivity(), MainView {
 
     override fun onBackPressed() {
         supportFragmentManager.fragments.forEach {
-            if(it is BackButtonListener && it.backPressed()){
+            if (it is BackButtonListener && it.backPressed()) {
                 return
             }
         }

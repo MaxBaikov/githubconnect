@@ -4,13 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.androidpoplib.githubconnect.GithubApplication
 import com.androidpoplib.githubconnect.R
 import com.androidpoplib.githubconnect.mvp.model.entity.GithubUserRepo
 import com.androidpoplib.githubconnect.mvp.presenter.ForkPresenter
 import com.androidpoplib.githubconnect.mvp.view.ForkView
 import com.androidpoplib.githubconnect.ui.BackButtonListener
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.fragment_fork.*
 import moxy.MvpAppCompatFragment
 import moxy.ktx.moxyPresenter
@@ -25,12 +23,7 @@ class ForkFragment : MvpAppCompatFragment(), ForkView, BackButtonListener {
         }
     }
 
-    val presenter: ForkPresenter by moxyPresenter {
-        ForkPresenter(
-            AndroidSchedulers.mainThread(),
-            GithubApplication.instance.router
-        )
-    }
+    val presenter: ForkPresenter by moxyPresenter { ForkPresenter() }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,7 +32,7 @@ class ForkFragment : MvpAppCompatFragment(), ForkView, BackButtonListener {
     ) = View.inflate(context, R.layout.fragment_fork, null)
 
 
-    override fun init(){
+    override fun init() {
         repo_fork.text = currentRepo.forks.toString()
     }
 

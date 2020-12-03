@@ -1,16 +1,19 @@
 package com.androidpoplib.githubconnect.mvp.presenter
 
+import com.androidpoplib.githubconnect.GithubApplication
 import com.androidpoplib.githubconnect.mvp.view.ForkView
-import io.reactivex.rxjava3.core.Scheduler
 import moxy.MvpPresenter
 import ru.terrakok.cicerone.Router
+import javax.inject.Inject
 
-class ForkPresenter(
-    private val scheduler: Scheduler,
-    private val router: Router?
+class ForkPresenter : MvpPresenter<ForkView>() {
 
-) :
-    MvpPresenter<ForkView>() {
+    @Inject
+    lateinit var router: Router
+
+    init {
+        GithubApplication.instance.appComponent.inject(this)
+    }
 
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
@@ -18,7 +21,7 @@ class ForkPresenter(
     }
 
     fun backPressed(): Boolean {
-        router?.exit()
+        router.exit()
         return true
     }
 }

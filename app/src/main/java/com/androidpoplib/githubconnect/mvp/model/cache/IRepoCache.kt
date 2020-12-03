@@ -1,4 +1,4 @@
-package com.androidpoplib.githubconnect.mvp.model.entity.cache
+package com.androidpoplib.githubconnect.mvp.model.cache
 
 import com.androidpoplib.githubconnect.mvp.model.entity.GithubUser
 import com.androidpoplib.githubconnect.mvp.model.entity.GithubUserRepo

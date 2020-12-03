@@ -11,10 +11,9 @@ import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_repo.view.*
 
 
-
 class RepoRVAdapter(
     val presenter: IRepoListPresenter,
-    ) : RecyclerView.Adapter<RepoRVAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<RepoRVAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         ViewHolder(

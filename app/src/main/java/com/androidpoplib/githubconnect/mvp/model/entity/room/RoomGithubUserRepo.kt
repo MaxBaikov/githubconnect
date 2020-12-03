@@ -1,8 +1,9 @@
-package com.androidpoplib.githubconnect.mvp.model.entity.room
+package com.androidpoplib.githubconnect.mvp.model.entity.room.dao
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
+import com.androidpoplib.githubconnect.mvp.model.entity.room.RoomGithubUser
 import org.jetbrains.annotations.NotNull
 
 
@@ -15,7 +16,7 @@ import org.jetbrains.annotations.NotNull
     )]
 )
 
-class RoomGithubUserRepo (
+class RoomGithubUserRepo(
     @PrimaryKey @NotNull var id: String,
     var name: String,
     var forks: String,

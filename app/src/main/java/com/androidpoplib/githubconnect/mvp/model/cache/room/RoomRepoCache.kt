@@ -1,11 +1,11 @@
-package com.androidpoplib.githubconnect.mvp.model.entity.room.cache
+package com.androidpoplib.githubconnect.mvp.model.cache.room
 
 import com.androidpoplib.githubconnect.mvp.model.entity.GithubUser
 import com.androidpoplib.githubconnect.mvp.model.entity.GithubUserRepo
-import com.androidpoplib.githubconnect.mvp.model.entity.cache.IRepoCache
+import com.androidpoplib.githubconnect.mvp.model.cache.IRepoCache
 import com.androidpoplib.githubconnect.mvp.model.entity.room.Database
 import com.androidpoplib.githubconnect.mvp.model.entity.room.RoomGithubUser
-import com.androidpoplib.githubconnect.mvp.model.entity.room.RoomGithubUserRepo
+import com.androidpoplib.githubconnect.mvp.model.entity.room.dao.RoomGithubUserRepo
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers

@@ -1,7 +1,6 @@
 package com.androidpoplib.githubconnect.mvp.model.entity.room.dao
 
 import androidx.room.*
-import com.androidpoplib.githubconnect.mvp.model.entity.room.RoomGithubUserRepo
 
 @Dao
 interface UserRepoDao {
