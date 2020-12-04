@@ -1,8 +1,7 @@
 package com.androidpoplib.githubconnect.mvp.presenter
 
 
-import android.util.Log
-import com.androidpoplib.githubconnect.GithubApplication
+import android.util.Log //TODO убрать зависимость через интерфейс
 import com.androidpoplib.githubconnect.mvp.model.entity.GithubUser
 import com.androidpoplib.githubconnect.mvp.model.entity.GithubUserRepo
 import com.androidpoplib.githubconnect.mvp.model.repo.IGithubUserRepo
@@ -20,21 +19,11 @@ class RepoPresenter(
     private val user: GithubUser
 ) : MvpPresenter<RepoView>() {
 
-    @Inject
-    lateinit var scheduler: Scheduler
-
-    @Inject
-    lateinit var router: Router
-
-    @Inject
-    lateinit var usersRepositories: IGithubUserRepo
-
+    @Inject lateinit var scheduler: Scheduler
+    @Inject lateinit var router: Router
+    @Inject lateinit var usersRepositories: IGithubUserRepo
 
     private val TAG = RepoPresenter::class.java.simpleName
-
-    init {
-        GithubApplication.instance.appComponent.inject(this)
-    }
 
     class RepoListPresenter : IRepoListPresenter {
         val repos = mutableListOf<GithubUserRepo>()
@@ -76,5 +65,10 @@ class RepoPresenter(
     fun backPressed(): Boolean {
         router.exit()
         return true
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        viewState.release()
     }
 }

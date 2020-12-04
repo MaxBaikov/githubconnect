@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.androidpoplib.githubconnect.ui.GithubApplication
 import com.androidpoplib.githubconnect.R
 import com.androidpoplib.githubconnect.mvp.model.entity.room.Database
 import com.androidpoplib.githubconnect.mvp.presenter.UsersPresenter
@@ -34,7 +35,11 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
     }
 
 
-    val presenter: UsersPresenter by moxyPresenter { UsersPresenter() }
+    val presenter: UsersPresenter by moxyPresenter {
+        UsersPresenter().apply {
+            GithubApplication.instance.initUserSubcomponent()?.inject(this)
+        }
+    }
 
     var adapter: UsersRVAdapter? = null
 
@@ -55,6 +60,10 @@ class UsersFragment : MvpAppCompatFragment(), UsersView, BackButtonListener {
     }
 
     override fun backPressed() = presenter.backPressed()
+
+    override fun release() {
+        GithubApplication.instance.releaseUserSubcomponent()
+    }
 }
 
 

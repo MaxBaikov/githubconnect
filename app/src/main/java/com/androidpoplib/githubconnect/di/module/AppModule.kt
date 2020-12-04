@@ -1,6 +1,6 @@
 package com.androidpoplib.githubconnect.di.module
 
-import com.androidpoplib.githubconnect.GithubApplication
+import com.androidpoplib.githubconnect.ui.GithubApplication
 import dagger.Module
 import dagger.Provides
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
