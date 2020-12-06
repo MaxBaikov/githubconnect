@@ -1,6 +1,8 @@
-package com.androidpoplib.githubconnect
+package com.androidpoplib.githubconnect.ui.activity
 
 import android.os.Bundle
+import com.androidpoplib.githubconnect.ui.GithubApplication
+import com.androidpoplib.githubconnect.R
 import com.androidpoplib.githubconnect.mvp.presenter.MainPresenter
 import com.androidpoplib.githubconnect.mvp.view.MainView
 import com.androidpoplib.githubconnect.ui.BackButtonListener

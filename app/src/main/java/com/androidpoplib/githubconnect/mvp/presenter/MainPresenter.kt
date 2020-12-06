@@ -1,6 +1,6 @@
 package com.androidpoplib.githubconnect.mvp.presenter
 
-import com.androidpoplib.githubconnect.GithubApplication
+import com.androidpoplib.githubconnect.ui.GithubApplication
 import com.androidpoplib.githubconnect.mvp.view.MainView
 import com.androidpoplib.githubconnect.navigation.Screens
 import moxy.MvpPresenter

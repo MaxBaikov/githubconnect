@@ -6,7 +6,7 @@ import android.net.ConnectivityManager.NetworkCallback
 import android.net.Network
 import android.net.NetworkRequest
 import android.util.Log
-import com.androidpoplib.githubconnect.GithubApplication
+import com.androidpoplib.githubconnect.ui.GithubApplication
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.subjects.BehaviorSubject

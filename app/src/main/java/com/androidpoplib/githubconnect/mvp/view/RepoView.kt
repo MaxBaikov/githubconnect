@@ -8,4 +8,5 @@ import moxy.viewstate.strategy.StateStrategyType
 interface RepoView : MvpView {
     fun init()
     fun updateList()
+    fun release()
 }

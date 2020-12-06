@@ -1,7 +1,6 @@
 package com.androidpoplib.githubconnect.mvp.presenter
 
 import android.util.Log
-import com.androidpoplib.githubconnect.GithubApplication
 import com.androidpoplib.githubconnect.mvp.model.entity.GithubUser
 import com.androidpoplib.githubconnect.mvp.model.repo.IGithubUsers
 import com.androidpoplib.githubconnect.mvp.presenter.list.IUserListPresenter
@@ -16,16 +15,9 @@ import javax.inject.Inject
 
 class UsersPresenter : MvpPresenter<UsersView>() {
 
-    @Inject
-    lateinit var scheduler: Scheduler
-    @Inject
-    lateinit var router: Router
-    @Inject
-    lateinit var usersRepo: IGithubUsers
-
-    init {
-        GithubApplication.instance.appComponent.inject(this)
-    }
+    @Inject lateinit var scheduler: Scheduler
+    @Inject lateinit var router: Router
+    @Inject lateinit var usersRepo: IGithubUsers
 
     companion object {
         const val TAG = "githubconnect"
@@ -74,6 +66,11 @@ class UsersPresenter : MvpPresenter<UsersView>() {
     fun backPressed(): Boolean {
         router.exit()
         return true
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        viewState.release()
     }
 
 

@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.androidpoplib.githubconnect.ui.GithubApplication
 import com.androidpoplib.githubconnect.R
+import com.androidpoplib.githubconnect.di.module.repository.RepositorySubcomponent
 import com.androidpoplib.githubconnect.mvp.model.entity.GithubUser
 import com.androidpoplib.githubconnect.mvp.presenter.RepoPresenter
 import com.androidpoplib.githubconnect.mvp.view.RepoView
@@ -26,7 +28,13 @@ class RepoFragment : MvpAppCompatFragment(), RepoView, BackButtonListener {
         }
     }
 
-    val presenter: RepoPresenter by moxyPresenter { RepoPresenter(currentUser) }
+    var repositorySubcomponent: RepositorySubcomponent? = null
+
+    val presenter: RepoPresenter by moxyPresenter {
+        RepoPresenter(currentUser).apply {
+            GithubApplication.instance.initRepositorySubcomponent()?.inject(this)
+        }
+    }
 
     var adapter: RepoRVAdapter? = null
 
@@ -49,5 +57,9 @@ class RepoFragment : MvpAppCompatFragment(), RepoView, BackButtonListener {
     }
 
     override fun backPressed() = presenter.backPressed()
+
+    override fun release() {
+        GithubApplication.instance.releaseRepositorySubcomponent()
+    }
 
 }

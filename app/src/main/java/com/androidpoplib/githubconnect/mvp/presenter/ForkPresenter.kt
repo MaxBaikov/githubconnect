@@ -1,6 +1,5 @@
 package com.androidpoplib.githubconnect.mvp.presenter
 
-import com.androidpoplib.githubconnect.GithubApplication
 import com.androidpoplib.githubconnect.mvp.view.ForkView
 import moxy.MvpPresenter
 import ru.terrakok.cicerone.Router
@@ -11,10 +10,6 @@ class ForkPresenter : MvpPresenter<ForkView>() {
     @Inject
     lateinit var router: Router
 
-    init {
-        GithubApplication.instance.appComponent.inject(this)
-    }
-
     override fun onFirstViewAttach() {
         super.onFirstViewAttach()
         viewState.init()
@@ -23,5 +18,10 @@ class ForkPresenter : MvpPresenter<ForkView>() {
     fun backPressed(): Boolean {
         router.exit()
         return true
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        viewState.release()
     }
 }

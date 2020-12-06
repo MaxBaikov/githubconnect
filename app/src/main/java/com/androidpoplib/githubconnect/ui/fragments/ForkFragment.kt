@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.androidpoplib.githubconnect.ui.GithubApplication
 import com.androidpoplib.githubconnect.R
 import com.androidpoplib.githubconnect.mvp.model.entity.GithubUserRepo
 import com.androidpoplib.githubconnect.mvp.presenter.ForkPresenter
@@ -17,13 +18,18 @@ class ForkFragment : MvpAppCompatFragment(), ForkView, BackButtonListener {
 
     companion object {
         lateinit var currentRepo: GithubUserRepo
+
         fun newInstance(repo: GithubUserRepo): ForkFragment {
             currentRepo = repo
             return ForkFragment()
         }
     }
 
-    val presenter: ForkPresenter by moxyPresenter { ForkPresenter() }
+    val presenter: ForkPresenter by moxyPresenter {
+        ForkPresenter().apply {
+            GithubApplication.instance.initRepositorySubcomponent()?.inject(this)
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -38,4 +44,7 @@ class ForkFragment : MvpAppCompatFragment(), ForkView, BackButtonListener {
 
     override fun backPressed() = presenter.backPressed()
 
+    override fun release() {
+        GithubApplication.instance.releaseRepositorySubcomponent()
+    }
 }
