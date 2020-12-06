@@ -23,11 +23,9 @@ class RetrofitGithubUsers(
                         return userCache.getUsers().flatMap {
                             userCache.putUsers(users).toSingleDefault(it)
                         }
-
                     }
                 ) else {
-                return userCache.getUsers()
-
+                userCache.getUsers()
             }
         }
     ).subscribeOn(Schedulers.io())

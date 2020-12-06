@@ -3,6 +3,7 @@ package com.androidpoplib.githubconnect.ui
 import android.app.Application
 import com.androidpoplib.githubconnect.di.AppComponent
 import com.androidpoplib.githubconnect.di.DaggerAppComponent
+
 import com.androidpoplib.githubconnect.di.module.AppModule
 import com.androidpoplib.githubconnect.di.module.repository.RepositorySubcomponent
 import com.androidpoplib.githubconnect.di.module.user.UserSubcomponent
